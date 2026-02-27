@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html>
+<head>
+<div class="e-ticket">
+        <div class="e-ticket-full" id="ticketPrint">
+          <style>
+            /*打印内部*/
+            .e-ticket-full {
+              padding: 0 30px 20px 30px;
+            }
+            .e-ticket-full .et-head {
+              margin-top: 0;
+              height: auto;
+              padding: 10px 0;
+            }
+            .e-ticket-full .et-tit {
+              margin: 0;
+            }
+
+            .et-head {
+              height: 110px;
+              border-bottom: 1px dashed #b4b4b4;
+              text-align: center;
+              padding-top: 20px;
+              position: relative;
+            }
+            .et-head .et-tit {
+              height: 20px;
+              line-height: 20px;
+              font-size: 16px;
+              font-weight: 400;
+              position: relative;
+              text-align: left;
+            }
+            .et-head .et-tit img {
+              display: inline-block;
+              width: 18px;
+              height: 20px;
+              vertical-align: top;
+              margin-right: 10px;
+            }
+            .et-head .et-subtit-lg {
+              font-size: 20px;
+              line-height: 36px;
+            }
+            .et-head .et-subtit {
+              line-height: 20px;
+              font-size: 14px;
+              color: #666;
+            }
+
+            .et-body {
+              padding: 15px 0;
+              position: relative;
+            }
+            .et-body .et-price {
+              position: absolute;
+              bottom: 15px;
+              left: 50%;
+              line-height: 28px;
+              color: #666;
+            }
+            .et-body .et-time {
+              line-height: 30px;
+            }
+            .et-body .et-time-num {
+              margin-left: 20px;
+            }
+            .et-body .et-time-num strong {
+              font-size: 18px;
+              font-weight: 400;
+            }
+            .et-body .et-station {
+              height: 56px;
+              margin-bottom: 10px;
+            }
+            .et-body .et-station-item {
+              float: left;
+              padding-right: 20px;
+              height: 56px;
+              position: relative;
+            }
+            .et-body .et-station-name {
+              float: left;
+            }
+            .et-body .et-station-name .name-ch {
+              height: 36px;
+              line-height: 36px;
+              font-size: 24px;
+              font-weight: 700;
+            }
+            .et-body .et-station-name .name-en {
+              height: 20px;
+              line-height: 20px;
+            }
+            .et-body .et-station-name-txt {
+              position: absolute;
+              top: 50%;
+              right: 0;
+              margin-top: -10px;
+              line-height: 20px;
+              height: 20px;
+              font-size: 12px;
+              color: #666;
+            }
+            .et-body .et-station-num {
+              float: left;
+              margin: 0 30px;
+              height: 40px;
+              line-height: 36px;
+              width: 65px;
+              text-align: center;
+            }
+            .et-body .et-station-num .num-txt {
+              font-size: 18px;
+              font-weight: 700;
+              line-height: 36px;
+            }
+            .et-body .et-station-num .num-pic {
+              display: block;
+              width: 64px;
+              height: 4px;
+              margin-top: -4px;
+            }
+            .et-body .et-ticket-infos {
+              height: 32px;
+              overflow: hidden;
+            }
+            .et-body .et-seat {
+              float: left;
+              width: 180px;
+              height: 26px;
+              line-height: 26px;
+            }
+            .et-body .et-seat .et-seat-num {
+              font-size: 18px;
+              font-weight: 700;
+              margin-right: 10px;
+              vertical-align: middle;
+            }
+            .et-body .et-type {
+              float: left;
+              width: 80px;
+              height: 26px;
+              line-height: 26px;
+              color: #666;
+            }
+            .et-body .et-check {
+              float: left;
+              line-height: 26px;
+            }
+            .et-body .et-check .et-check-en {
+              display: none;
+            }
+            .et-body .et-check-name {
+              float: left;
+              line-height: 26px;
+              color: #666;
+              margin-right: 20px;
+            }
+            .et-body .check-num {
+              float: left;
+              height: 26px;
+              line-height: 26px;
+              font-size: 18px;
+              font-weight: 700;
+            }
+            .et-body .et-number {
+              height: 28px;
+              line-height: 28px;
+              font-weight: 700;
+            }
+            .et-body .et-number-name {
+              float: left;
+              min-width: 5em;
+            }
+            .et-body .et-number-text {
+              float: left;
+            }
+            .et-body .et-help {
+              line-height: 28px;
+              height: 28px;
+            }
+            .et-body .et-help-in {
+              float: left;
+              font-weight: 400;
+              color: #666;
+            }
+            .et-body .et-help-tips {
+              float: left;
+              width: 240px;
+              white-space: nowrap;
+            }
+            .et-body .et-code {
+              position: absolute;
+              top: 38px;
+              right: 0;
+            }
+            .et-body .et-code-pic {
+              border: 1px solid #e5e5e5;
+              width: 130px;
+              height: 130px;
+            }
+            .et-body .et-code-pic img {
+              display: block;
+              width: 128px;
+              height: 128px;
+            }
+            .et-body .et-code-txt {
+              height: 40px;
+              line-height: 40px;
+              text-align: center;
+              color: #666;
+            }
+
+            .et-tips {
+              border-bottom: 1px solid #e5e5e5;
+              border-top: 1px solid #e5e5e5;
+              padding: 15px 0;
+            }
+            .et-tips .et-tips-tit {
+              line-height: 20px;
+              text-align: center;
+              font-size: 14px;
+              font-weight: 700;
+            }
+            .et-tips .et-tips-list {
+              line-height: 18px;
+              padding-left: 15px;
+            }
+            .et-tips .et-tips-list li {
+              margin-top: 8px;
+              list-style-type: decimal;
+              list-style-position: outside;
+            }
+
+            .et-foot {
+              overflow: hidden;
+            }
+            .et-foot .et-foot-tit {
+              height: 50px;
+              line-height: 50px;
+              text-align: center;
+              font-size: 18px;
+              font-weight: 700;
+            }
+            .et-foot .et-foot-info {
+              text-align: center;
+              line-height: 20px;
+            }
+            .et-foot .et-foot-info span {
+              margin: 0 35px;
+              color: #999;
+            }
+            .et-foot .et-foot-code {
+              float: left;
+              height: 70px;
+              margin-top: 10px;
+              margin-left: 170px;
+            }
+            .et-foot .et-code-pic {
+              float: left;
+              width: 70px;
+              height: 70px;
+              margin-right: 15px;
+            }
+            .et-foot .et-code-txt {
+              float: left;
+              line-height: 20px;
+              padding: 15px 0;
+              color: #666;
+            }
+            .et-foot .et-ad {
+              float: right;
+              margin-top: 15px;
+              width: 302px;
+              height: 70px;
+              border: 1px solid #dedede;
+              display: none;
+            }
+            .et-foot .et-ad img {
+              display: block;
+              width: 300px;
+              height: 68px;
+            }
+
+            .et-show-ad .et-foot-code {
+              float: left;
+              margin-left: 0;
+            }
+            .et-show-ad .et-ad {
+              display: block;
+            }
+          </style>
+          <div class="et-head">
+            <h2 class="et-tit">
+              <img src="../images/logotrain.png" alt="">中国铁路
+              <span style="font-size: 12px">China Railway</span>
+            </h2>
+            <div class="et-subtit-lg">行程信息提示</div>
+            <div class="et-subtit">Trip Information Reminders</div>
+          </div>
+          <div class="et-body" id="notice_temp">
+      <div class="et-time">
+        <span class="txt-light">开车时间</span>
+        <span class="et-time-num">2025年<strong>01</strong>月<strong>04</strong>日    <strong class="ml-lg">10:39</strong></span>
+      </div>
+      <div class="et-station">
+        <div class="et-station-item">
+          <div class="et-station-name">
+            <div class="name-ch">苏州</div>
+            <div class="name-en">Suzhou</div>
+          </div>
+          <div class="et-station-name-txt">站</div>
+        </div>
+        <div class="et-station-num">
+          <div class="num-txt">G7042</div>
+          <img src="../images/ticket/to.png" class="num-pic" alt="">
+        </div>
+        <div class="et-station-item">
+          <div class="et-station-name">
+            <div class="name-ch">南京</div>
+            <div class="name-en">Nanjing</div>
+          </div>
+          <div class="et-station-name-txt">站</div>
+        </div>
+      </div>
+      <div class="et-ticket-infos">
+        <div class="et-seat">
+            
+            
+         
+          <span class="et-seat-num">08车 10F号 </span>
+          <span style="margin-right:10px;">二等座</span>
+        </div>
+        <div class="et-type">学 &nbsp;&nbsp; </div>
+    
+          <div class="et-check"></div>
+        
+      </div>
+      <div class="et-help">
+        <strong class="et-help-tips">限乘当日当次车</strong>
+        
+      </div>
+      <div class="et-number" style="display:block;">
+        
+          <span class="et-number-name">样本</span>
+        
+        <span class="et-number-text">2024***********001&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span class="et-number-text">居民身份证</span>
+      </div>
+      <div class="et-number">
+        <span class="et-number-name" style="margin-right: -0.5em;">电子票号</span>
+        <span class="et-number-text">：20250104210001</span>
+      </div>
+      <div class="et-number">
+        <div class="et-number-name" style="letter-spacing: 0.5em;margin-right: -0.5em;">订单号</div>
+        <div class="et-number-text">：E20240309</div>
+      </div>
+      
+      <div class="et-price">票价：89.0元</div>
+      
+      <div style="position: absolute;bottom: 15px;right:7%;line-height: 28px;">
+          
+      </div>
+      <div class="et-code">
+        <div class="et-code-pic"><img src="2024031101123060512==" alt=""></div>
+        <div class="et-code-txt" style="text-align: center;">电子客票二维码(样板无二维码）</div>
+      </div>
+    </div>
+          <div class="et-tips notice_tips" style="">
+            <h3 class="et-tips-tit">温馨提示</h3>
+            <ul class="et-tips-list">
+              <li>
+                请持本人有效身份证件原件乘车，行程信息提示不作为乘车凭证使用，如改签、变更到站或退票
+                请 提
+                前办理。票、证、人不一致的，铁路部门有权拒绝进站乘车。直达票中途下车，未乘区间失效
+                ，通 票中 转需签证。
+              </li>
+              <li>开车前提前停止检票，请提前到车站指定场所候车。</li>
+              <li>
+                需要报销的旅客，可在开车前或乘车日期之日起30日内，凭购票时使用的有效身份证件到车站指
+                定窗 口或自动售/取票机换取报销凭证。
+              </li>
+              <li>
+                对无票乘车、冒用身份信息购票及使用伪造身份证件乘车、冒用优惠（待）身份证件乘车的，铁
+                路 部门保留限 制购票等权利。
+              </li>
+              <li>
+                遇运行图调整导致已购车票列车运行时刻变动的，铁路部门免费提供改签、变更到站及退票服务。
+              </li>
+              <li>遇灾害险情等特殊情况，须听从铁路工作人员指挥安排。</li>
+              <li>
+                www.12306.cn（含铁路12306手机客户端）是铁路唯一官方客运服务网站，请勿通过其他网站抢
+                票 ，以免遭受损失。
+              </li>
+              <li>
+                免费携带品上限为成人20千克、儿童10千克，长、宽、高之和不超过160厘米（动车组列车130厘
+                米
+                ），超过规定请办理托运。不得携带可能威胁公共安全的禁止或限制运输物品、造成人身伤害的
+                大件 硬 质物品、妨碍公共卫生及损坏污染车辆的物品。
+              </li>
+              <li>
+                未尽事宜详见《国铁集团铁路旅客运输规程》《广深港高速铁路跨境旅客运输组织规则》《中老铁路跨境旅客联运组织规则》等有关规定和车站公告。跨境旅客事宜详见铁路跨境旅客相
+                关 运输组织规则和车站公告。
+              </li>
+            </ul>
+          </div>
+          <div class="et-foot notice_foot" style="">
+            <div class="et-foot-tit">请按行程信息提示乘车，祝您旅途愉快！</div>
+            <div class="et-foot-info"><span>打印时间：</span></div>
+            <div class="et-foot-code">
+              <img src="../images/download.png" class="et-code-pic" alt="">
+              <div class="et-code-txt">
+                买票或打印行程提示，请至12306官网购买或打印<br>仿铁路12306行程提示(自制）<br><a href='https://kyfw.12306.cn/otn/resources/login.html'>12306官网</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</html>
+</head>
